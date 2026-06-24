@@ -1,0 +1,38 @@
+<html>
+    <body>
+        <label>
+            <h1>create character</h1>
+        </label>
+        <div>
+            <label>
+                <h3>Player</h3>
+                <br></label>
+                <input type="text" id="playerName" placeholder="Enter your name">
+        </div>
+        <div><select id ="playerClass">
+            <option value="">Choose class</option>
+                <option value="warrior">warrior</option>
+                <option value="mage">mage</option>
+                <option value="archer">archer</option>
+                <option value="assassin">assassin</option>
+                <option value="alchemist">alchemist</option>
+            </select></div>
+        <div>
+            <label>
+                <h3>Level</h3>
+            </label>
+            <br>
+            <input id="level" type="number" min="1" max="1000" placeholder="level"></div>
+            <button id="doneButton">done</button>
+            <button id="clearButton">clear</button>
+            <button id="cancelButton" style="display:none;">cancel</button>
+            <div id="countBox">Number of players: 0</div>
+            <div id="usersBox"></div>
+            <button id="eliteButton">Elite?</button>
+            <button id="pureButton">Pure?</button>
+            <div id="tierList"></div>
+            <button id="doomButton">Doom</button>
+    <script src="logic.js" defer>
+    </script>
+    </body>
+    </html>
