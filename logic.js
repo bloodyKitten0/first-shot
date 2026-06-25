@@ -1,4 +1,4 @@
-let playerInput = document.getElementById("playerName")
+        let playerInput = document.getElementById("playerName")
         let classInput = document.getElementById("playerClass")
         let levelInput = document.getElementById("level")
         let countSpace = document.getElementById("countBox")
@@ -72,7 +72,7 @@ let playerInput = document.getElementById("playerName")
             class: classInput.value,
             level: level,
             tier: tier,
-            miwa: playerInput.value.trim().toLowerCase() === "miwa"
+            miwa: playerInput.value.trim().toLowerCase() === "miwa" || playerInput.value.trim().toLowerCase() === "三和"
         }
     }
     function tierReaction(user , owner){
@@ -138,7 +138,7 @@ function topPlayer(){
     })
 }
 function topThree(){
-    if (users.length === 3){
+    if (users.length === 0){
         return null}
        return users.slice(0,3).map((user)=>{
            return user.name
