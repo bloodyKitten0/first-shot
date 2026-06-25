@@ -1,4 +1,4 @@
-   let playerInput = document.getElementById("playerName")
+let playerInput = document.getElementById("playerName")
         let classInput = document.getElementById("playerClass")
         let levelInput = document.getElementById("level")
         let countSpace = document.getElementById("countBox")
@@ -10,6 +10,10 @@
         let eliteButton = document.getElementById("eliteButton")
         let pureButton = document.getElementById("pureButton")
         let doomButton = document.getElementById("doomButton")
+        let totalLevelButton = document.getElementById("totalLevelButton")
+        let averageButton = document.getElementById("averageButton")
+        let topPlayerButton = document.getElementById("topPlayerButton")
+        let topThreeButton = document.getElementById("topThreeButton")
         let users = []
         let editId = null
         let saved = localStorage.getItem("key")
@@ -117,6 +121,29 @@ function elite(){
 function pure(){
     return users.length >= 3 && users.every((user) => user.class === users[0].class)
 }
+function calculateTotal(){
+        if (users.length ===0){
+        return null}
+   return users.reduce((acc , user)=>{
+       return acc + user.level
+    },0)
+}
+function topPlayer(){
+    if (users.length ===0){
+        return null}
+   return users.reduce((acc , user)=>{
+        if (user.level > acc.level){
+            return user
+        } return acc
+    })
+}
+function topThree(){
+    if (users.length === 3){
+        return null}
+       return users.slice(0,3).map((user)=>{
+           return user.name
+        })
+    }
 clearButton.addEventListener("click",()=>{
     clearInputs()
 })
@@ -126,7 +153,7 @@ cancelButton.addEventListener("click",()=>{
     editId = null
 })
 eliteButton.addEventListener("click",()=>{
-    if(elite()){
+ if (elite()){
         alert("This is an elite team")
     }else{
         alert("This is not an elite team")
@@ -141,6 +168,38 @@ if(pure()){
 doomButton.addEventListener("click",()=> {
         doom()
     })
+totalLevelButton.addEventListener("click",()=>{
+    let total = calculateTotal()
+    if (!calculateTotal()){
+    alert("There's no players yet")
+}else{
+    alert(total)
+}
+})
+averageButton.addEventListener("click", ()=>{
+    let average = calculateTotal()/users.length
+    if (!calculateTotal()){
+        alert("There's no players yet")
+    }else{
+        alert(average.toFixed(1))
+    }
+})
+topPlayerButton.addEventListener("click", ()=>{
+    let best = topPlayer()
+    if(!topPlayer()){
+        alert("There's no players yet")
+    }else{
+        alert(best.name)
+    }
+})
+topThreeButton.addEventListener("click",()=>{
+    let top3 = topThree()
+    if(!topThree()){
+        alert("There's no players yet")
+    }else{
+        alert(top3.join(" | "))
+    }
+})
 function render(){
     countSpace.innerHTML = ""
     userSpace.innerHTML = ""
@@ -193,7 +252,6 @@ function render(){
     })
     userSpace.appendChild(nameHolder)
 }
-render()
 doneButton.addEventListener("click",()=>{
     if (!rules()){
         return

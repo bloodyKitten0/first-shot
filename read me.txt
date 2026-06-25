@@ -1,0 +1,17 @@
+# RPG Character Manager
+
+A web app for creating and managing RPG characters.
+
+Features:
+- Create characters
+- Edit characters
+- Delete characters
+- Character tiers
+- Elite team check
+- Pure class check
+- Local Storage saving
+
+Built with:
+- HTML
+- JavaScript
+- Local Storage
