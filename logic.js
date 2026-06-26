@@ -1,4 +1,4 @@
-        let playerInput = document.getElementById("playerName")
+         let playerInput = document.getElementById("playerName")
         let classInput = document.getElementById("playerClass")
         let levelInput = document.getElementById("level")
         let countSpace = document.getElementById("countBox")
@@ -204,52 +204,75 @@ function render(){
     countSpace.innerHTML = ""
     userSpace.innerHTML = ""
     tierSpace.innerHTML = ""
-    users.forEach((user) =>{
-  let holder = document.createElement("div")
-    holder.textContent = `player ${user.name} is a/an ${user.class} with the level of ${user.level}`
-    tierReaction(user , holder)
-    let idButton = document.createElement("Button")
-    idButton.textContent ="ID"
-    holder.appendChild(idButton)
-    idButton.addEventListener("click",()=>
-    alert(user.id)
-    )
-    let editButton = document.createElement("Button")
-    editButton.textContent = "Edit"
-    holder.appendChild(editButton)
-    editButton.addEventListener("click",()=>{
-    playerInput.value = user.name
-    classInput.value = user.class
-    levelInput.value= user.level
-    editId = user.id
-    editMode(true)
-    })
-    let deleteButton = document.createElement("Button")
-    deleteButton.textContent="Delete"
-    holder.appendChild(deleteButton)
-    deleteButton.addEventListener("click", ()=>{
-    if(confirm("you sure")){
-     users =  users.filter((u)=> u.id !== user.id)
-     render()
-     saveCreation()
-    }else{
-        return
-     }
-    })
-    tierSpace.appendChild(holder)
-    })
+
+    let vowels = ["a", "e", "i", "o", "u"]
+
+    for (let {name, class: role, level, tier, miwa, id} of users) {
+        let holder = document.createElement("div")
+
+        let aOrAn =
+            vowels.includes(role[0].toLowerCase())
+                ? "an"
+                : "a"
+
+        holder.textContent =`
+            player ${name} is ${aOrAn} ${role} with the level of ${level}`
+
+        tierReaction({tier, miwa}, holder)
+
+        let idButton = document.createElement("button")
+        idButton.textContent = "ID"
+        holder.appendChild(idButton)
+        idButton.addEventListener("click", () => {
+            alert(id)
+        })
+
+        let editButton = document.createElement("button")
+        editButton.textContent = "Edit"
+        holder.appendChild(editButton)
+        editButton.addEventListener("click", () => {
+            playerInput.value = name
+            classInput.value = role
+            levelInput.value = level
+            editId = id
+            editMode(true)
+        })
+
+        let deleteButton = document.createElement("button")
+        deleteButton.textContent = "Delete"
+        holder.appendChild(deleteButton)
+
+        deleteButton.addEventListener("click", () => {
+            if (confirm("you sure")) {
+                users = users.filter((u) => u.id !== id)
+                render()
+                saveCreation()
+            }
+        })
+
+        tierSpace.appendChild(holder)
+    }
+
     countSpace.textContent = `players number is:${users.length}`
+
     let nameHolder = document.createElement("div")
-    let sortName = [...users].sort((a,b)=>a.name.localeCompare(b.name))
-    sortName.forEach((user , index)=>{
-        if(index > 0){
-            nameHolder.appendChild(document.createTextNode(" | "))
+    let sortName = [...users].sort((a, b) =>
+        a.name.localeCompare(b.name)
+    )
+
+    sortName.forEach((user, index) => {
+        if (index > 0) {
+            nameHolder.appendChild(
+                document.createTextNode(" | ")
+            )
         }
+
         let spanNames = document.createElement("span")
         spanNames.textContent = user.name
         tierReaction(user, spanNames)
         nameHolder.appendChild(spanNames)
     })
+
     userSpace.appendChild(nameHolder)
 }
 doneButton.addEventListener("click",()=>{
